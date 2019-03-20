@@ -1,6 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
+import Home from './views/home/Home.vue'
+import Luxury from './views/home/HomeMainLuxury.vue'
+import Play from './views/home/Play.vue'
+import Travel from './views/home/Travel.vue'
+import Brand from './views/brand/Brand.vue'
 
 Vue.use(Router)
 
@@ -8,16 +12,30 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: Home
+      redirect: '/home',
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
-    }
+      path: '/home',
+      redirect: '/home/luxury',
+      component: Home,
+      children:[
+        {
+          path: 'luxury',
+          component: Luxury 
+        },
+        {
+          path: 'play',
+          component: Play
+        },
+        {
+          path: 'travel',
+          component: Travel
+        }
+      ]
+    },
+    {
+      path: '/brand',
+      component: Brand,
+    },
   ]
 })
