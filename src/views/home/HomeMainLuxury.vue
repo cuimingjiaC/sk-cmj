@@ -57,36 +57,55 @@
         >
       </div>
 
-      <div class="floor-03 slider-banner-container">
-        <!-- 横向滚动 -->
+      <!-- 03横向滚动 -->
+      <div class="floor-03">
+        <div class="floor-03-slider-banner-container">
+          <div class="floor-03-swiper-wrapper">
+            <div class="floor-03-swiper-slide">
+              <div class="floor-03-slider-item">
+                <h3 class="floor-03-slider-title">
+                  <span>数码</span>
+                  <span>新品到货</span>
+                </h3>
+                <div class="floor-03-slider-content">
+                  <img src="https://pic12.secooimg.com/res/topic/50/99/1ZNL5o2cd1d3138c8c454aaad8627914beac37.jpg_!!0x0.webp" alt="">
+                </div>
+              </div>  
+
+              <!-- <div class="floor-03-slider-item">
+                <h3 class="floor-03-slider-title">
+                  <span>数码</span>
+                  <span>新品到货</span>
+                </h3>
+                <div class="floor-03-slider-content">
+                  <img src="https://pic12.secooimg.com/res/topic/50/99/1ZNL5o2cd1d3138c8c454aaad8627914beac37.jpg_!!0x0.webp" alt="">
+                </div>
+              </div> -->
+
+            </div>
+          </div>
+        </div>
       </div>
 
       
         
-      <div class="floor-04 sku-slider-container component-item item">
+      <!-- <div class="floor-04 sku-slider-container component-item item"> -->
         <!-- 这也是个轮播 -->
-      </div>
+      <!-- </div> -->
 
 
-      <div class="floor-05">
-        <div class="title-container">
-            <h3 class="title">新人专享福利</h3>
-            <h4 class="sub-title">新人特价 低至5折再享神券</h4>
+      <div class="floor-05" v-for="item in sikuItemList" :key="item.index">
+        <div class="title-container" >
+            <h3 class="title">{{item.list[0].title}}</h3>
+            <h4 class="sub-title">{{item.list[0].subTitle}}</h4>
 
             <img
                 class="slider-img"
                 data-src="https://pic12.secooimg.com/res/topic/49/53/1Zmtos15396be9d30b4b918dbf40e54c44b417.png_!!0x0.webp"
-                src="https://pic12.secooimg.com/res/topic/48/99/1ZO6ZF0c9ee6053bda42c8b55dc9a4b4046264.jpg_!!0x0.webp"
+                :src= "item.list[0].img"
                 lazy="loaded"
               >
         </div>
-
-        <div>
-          <div >
-              
-            </div>
-        </div>
-
       </div>
     </div>
   </div>
@@ -106,7 +125,8 @@ export default {
     return {
       results: "",
       swipeItems: [],
-      initData: null
+      // initData: null,
+      sikuItemList:[],
     };
   },
 
@@ -117,7 +137,30 @@ export default {
     });
     this.results = result;
     this.swipeItems = this.results.data.floors[0].list;
-    // this.initData = this.results
+
+    // this.sikuItemList = {
+    //   ...this.sikuItemList,
+    //   ...result.data.floors[5],
+    //   ...result.data.floors[7],  
+    //   不是一个类型 不可以用展开运算符 都是不对的 瞎写 的
+    // };
+    this.sikuItemList.push(result.data.floors[5])
+    this.sikuItemList.push(result.data.floors[7])
+    this.sikuItemList.push(result.data.floors[8])
+    this.sikuItemList.push(result.data.floors[9])
+    this.sikuItemList.push(result.data.floors[10])
+    this.sikuItemList.push(result.data.floors[11])
+    this.sikuItemList.push(result.data.floors[12])
+    this.sikuItemList.push(result.data.floors[13])
+    this.sikuItemList.push(result.data.floors[14])
+    this.sikuItemList.push(result.data.floors[15])
+    this.sikuItemList.push(result.data.floors[19])
+    this.sikuItemList.push(result.data.floors[20])
+    this.sikuItemList.push(result.data.floors[21])
+    this.sikuItemList.push(result.data.floors[22])
+
+
+    // console.log(this.sikuItemList)
   },
   // watch: {
     // initData(){
@@ -128,6 +171,12 @@ export default {
   mounted() {
 
     new BScroll('.main-scroll')
+
+    new BScroll('.floor-03-swiper-wrapper', {
+      // probeType: 2,
+      scrollX: true,
+      scrollY: false
+    })
 
     var swiper = new Swiper(".swiper-container", {
       slidesPerView: 1,
@@ -223,13 +272,58 @@ export default {
   width: 100%;
 }
 
-.slider-banner-container {
-  height: 3.75rem;
-  padding: 0.4rem 0 0.6rem;
-}
+// .floor-03
+.floor-03
+  height 4.74rem
+  padding 0.45rem 0 0.5rem
+  background-color #ffffff
+  .floor-03-slider-banner-container 
+    margin 0 auto
+    // position: relative;
+    overflow: hidden;
+    // list-style: none;
+    padding: 0;
+    // z-index: 1;
+    height 100%
+    .floor-03-swiper-wrapper
+      // position: relative;
+      width: 100%;
+      height: 100%;
+      // z-index: 1; 
+      // display: flex;  //
+      // box-sizing: content-box;
+      overflow-x scroll !important
+      .floor-03-swiper-slide
+        // margin .15rem
+        // width 5.9rem  //
+        &:first-child
+          // margin-left: -.65rem
+        .floor-03-slider-item
+          display inline-block !important 
+          margin-left:.15rem
+          width 5.9rem //
+          // float left
+          dispaly inline-block
+          .floor-03-slider-title
+            // display inline-block !important
+            font-size: .4rem;
+            line-height: .4rem;
+            margin-bottom: .12rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          img 
+            // display inline-block !important
+            height 3.1rem
+            width 100%  
+
+
 
 .floor-05 
   padding .4rem .3rem
+  background-color: #fff;
+  margin-top: .2rem;
+ 
   .title-container
     position: relative;
     h3
@@ -241,9 +335,10 @@ export default {
       color: #000b0b;
       line-height: .53rem;
       margin-bottom: .04rem;
-      font-weight: 600;
+      font-weight: 100;
       width: 15em;
     h4
+      font-weight: 100;
       font-family: PingFangSC-Light;
       font-size .3rem
       line-height .36rem

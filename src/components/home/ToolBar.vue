@@ -59,8 +59,6 @@
 import {getHomePageHead} from 'utils/requests'
 // import getHomePageHead from 'utils/requests'
 
-console.log(getHomePageHead)
-
 
 export default {
     data(){
