@@ -1,5 +1,5 @@
 <template>
-<div>qq
+<div>
     <div class="newUserCallApp">
         <div class="newUserCallApp-con">
             <img src="//mstatic.secooimg.com/images/2017/11/08/load_logo.png">

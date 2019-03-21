@@ -53,9 +53,9 @@
         flex-direction column
         -webkit-align-items center
         &.activeColor i
-            color yellow
+            color #f8a120
         &.activeColor span
-            color yellow
+            color #f8a120
 
     .iconfont 
         font-size .5rem
