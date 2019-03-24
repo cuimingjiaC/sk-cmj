@@ -17,7 +17,7 @@
         </router-link>
 
         <router-link to="/bag" tag="li" class="footer-item" active-class="activeColor">
-            <i class="iconfont icon-home"></i>            
+            <i class="iconfont icon-shopping-bag"></i>            
             <span class="text">购物袋</span>
         </router-link>
 
@@ -42,6 +42,7 @@
         height: .87rem;
         z-index: 10;
         background-color: #fff;
+        padding-top .03rem
 
     .footer
         display: flex;

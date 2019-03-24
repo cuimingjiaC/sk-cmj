@@ -2,10 +2,34 @@
 <div>
     <div class="root">
     <header>
-        <svg t="1553348297598" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2851" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M694.272 809.024l-295.808-286.848 295.36-274.752a32 32 0 0 0-43.616-46.848l-320 297.696a32 32 0 0 0-0.512 46.4l320 310.304a32.032 32.032 0 0 0 44.576-45.952" p-id="2852"></path></svg>
+        <svg @click="goback" t="1553348297598" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2851" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M694.272 809.024l-295.808-286.848 295.36-274.752a32 32 0 0 0-43.616-46.848l-320 297.696a32 32 0 0 0-0.512 46.4l320 310.304a32.032 32.032 0 0 0 44.576-45.952" p-id="2852"></path></svg>
         <h1>品牌优选</h1>
-        <svg t="1553348309853" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2967" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M224 352h64a32 32 0 0 0 0-64H224a32 32 0 0 0 0 64M224 544h64a32 32 0 0 0 0-64H224a32 32 0 0 0 0 64M384 352h64a32 32 0 0 0 0-64h-64a32 32 0 0 0 0 64M384 544h64a32 32 0 0 0 0-64h-64a32 32 0 0 0 0 64M544 352h64a32 32 0 0 0 0-64h-64a32 32 0 0 0 0 64M704 352h64a32 32 0 0 0 0-64h-64a32 32 0 0 0 0 64M544 544h64a32 32 0 0 0 0-64h-64a32 32 0 0 0 0 64M704 544h64a32 32 0 0 0 0-64h-64a32 32 0 0 0 0 64M779.776 672H224a32 32 0 0 0 0 64h555.776a32 32 0 0 0 0-64" p-id="2968"></path></svg>
+        <div class="rightBtn">
+            <svg @click="show = !show" t="1553348309853" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2967" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M224 352h64a32 32 0 0 0 0-64H224a32 32 0 0 0 0 64M224 544h64a32 32 0 0 0 0-64H224a32 32 0 0 0 0 64M384 352h64a32 32 0 0 0 0-64h-64a32 32 0 0 0 0 64M384 544h64a32 32 0 0 0 0-64h-64a32 32 0 0 0 0 64M544 352h64a32 32 0 0 0 0-64h-64a32 32 0 0 0 0 64M704 352h64a32 32 0 0 0 0-64h-64a32 32 0 0 0 0 64M544 544h64a32 32 0 0 0 0-64h-64a32 32 0 0 0 0 64M704 544h64a32 32 0 0 0 0-64h-64a32 32 0 0 0 0 64M779.776 672H224a32 32 0 0 0 0 64h555.776a32 32 0 0 0 0-64" p-id="2968"></path></svg>
+            <div class="transitionBox">
+                <transition name="fade">
+                    <ul class="bindEventListUl" v-show="show">
+                        <li @click="goHome()">
+                            <i class="iconfont icon-home"></i>            
+                            <span class="text">首页</span>
+                        </li>
+                        <li @click="goBag()">
+                            <i class="iconfont icon-shopping-bag"></i>            
+                            <span class="text">购物袋</span>
+                        </li>
+                        <li @click="goMy()">
+                            <i class="iconfont icon-my"></i>      
+                            <span>我的寺库</span>
+                        </li>
+                        <!-- <div style="clear:both"></div> -->
+                    </ul>
+                </transition>
+            </div>
+            
+        </div>
+        
     </header>
+
     <div>
         <div class="floor_1">
             <h1>品牌优选</h1>
@@ -47,7 +71,8 @@ import { Toast } from 'mint-ui';
 export default {
     data() {
         return {
-            brandList:[]
+            brandList:[],
+            show:false
         }
     },
     components:{
@@ -60,10 +85,9 @@ export default {
         let results = await getRequestMethod({
             url:'/brandList.json'
         })
-        console.log(results.data)
+        
         this.brandList = results.data.list
         
-        console.log(this.brandList)
     },
 
     mounted(){
@@ -100,7 +124,24 @@ export default {
              bScroll.finishPullUp()
             
         })
+    },
+    methods:{
+        goback(){
+            window.history.back()
+        },
+        goHome(){
+            this.$router.push('/home')
+        },
+        goBag(){
+            this.$router.push('/bag')
+        },
+        goMy(){
+            this.$router.push('/my')
+        }
+
     }
+
+
 
 
 
@@ -109,6 +150,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped >
+@import '~@/assets/border.styl';
 // .root 
     // transform scale(2)
 // .root >>> html 
@@ -139,8 +181,43 @@ header
         font-weight 400
         flex 1
         text-align center
-        // line-height .42rem
-        // position absolute
+    .rightBtn
+        width 43px
+        .transitionBox
+            overflow hidden
+            position relative
+            top 0 !important  //这里很奇怪，就是动画的top的属性值，会加到上面的div上
+            width: 1.33*2rem;
+            left -.8*2rem
+            height: 1.5*2rem
+            .fade-enter-active, .fade-leave-active 
+                transition: all 250ms;
+            .fade-enter,.fade-leave-to
+                top :-1.5*2rem
+            .fade-enter-to
+                top:0
+
+.bindEventListUl
+    list-style none
+    width 1.33*2rem
+    position absolute
+    right 0
+    // top .44*2rem
+    top 0
+    // top -45*2*3px
+    z-index 999
+    background-color #ffffff
+    text-align left
+    li
+        width 1.33*2rem
+        height .49*2rem
+        line-height .49*2rem
+        border(0 0 1px 0,#E1E1E1)
+        i 
+            font-size .22*2rem
+            padding 0 .1*2rem 0 .2*2rem
+        span 
+            font-size .13*2rem
 
 .floor_1
     height .71*2rem
