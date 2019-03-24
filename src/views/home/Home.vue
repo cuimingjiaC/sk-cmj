@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="root">
     <div class="newUserCallApp">
         <div class="newUserCallApp-con">
             <img src="//mstatic.secooimg.com/images/2017/11/08/load_logo.png">
@@ -14,7 +14,6 @@
     <router-view></router-view>
     <Footer></Footer>
 </div>
-
 </template>
 
 <script>
@@ -31,6 +30,9 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+.root
+    // transform scale(0.5)
+
 .con
     position relative
 .newUserCallApp

@@ -56,8 +56,8 @@
 </style>
 
 <script>
-import {getHomePageHead} from 'utils/requests'
-// import getHomePageHead from 'utils/requests'
+import {getRequestMethod} from 'utils/requests'
+// import getRequestMethod from 'utils/requests'
 
 
 export default {
@@ -68,7 +68,7 @@ export default {
     },
     
     async created() {
-        const result = await getHomePageHead({
+        const result = await getRequestMethod({
             url:'api/home/home_page_head?c_platform_type=0&c_app_ver=6.0.0&c_upk=420103015343A15EBCF8633F141FE5C6C57161D5135D5665089292C437542863EF19213991EBBD9035BCA7D49C3459EA6A30C5757F778F8678D2653E3ACFF38DA0D3355E9ACD2A0B2F892115DC6E2051F32D7E52966F9B37491D74B687A051AC0071C526A7CA9FB6D362E53D3EE495D4FABF743376A7A417CAB8'
         })
         this.navItems = result.data.tabs

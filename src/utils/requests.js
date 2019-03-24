@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const getHomePageHead = ({url,method='GET',data={},params={}})=>{
+const getRequestMethod = ({url,method='GET',data={},params={}})=>{
     return axios({
         url,
         method,
@@ -10,9 +10,9 @@ const getHomePageHead = ({url,method='GET',data={},params={}})=>{
 }
 
 // export default {
-//     getHomePageHead
+//     getRequestMethod
 // }
 
 export {
-    getHomePageHead
+    getRequestMethod
 }

@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "mock": "json-server ./src/static/mock/mock.js --port 9000 -r ./src/static/mock/route.json"    
   },
   "dependencies": {
     "axios": "^0.18.0",
