@@ -1,34 +1,18 @@
 <template>
-<div class="root">
-    <Open></Open>
-    <SearchBar></SearchBar>
-    <ToolBar></ToolBar>
-    <router-view></router-view>
-    <Footer></Footer>
-</div>
+    <div>
+        <div class="newUserCallApp">
+            <div class="newUserCallApp-con">
+                <img src="//mstatic.secooimg.com/images/2017/11/08/load_logo.png">
+                <h1>寺库</h1>
+                <p>新用户注册送2500元大礼包</p>
+                <div>立即打开</div>
+            </div>
+        </div>
+    </div>
 </template>
 
-<script>
-import SearchBar from '@/components/home/SearchBar'
-import ToolBar from '@/components/home/ToolBar'
-import Footer from '@/components/home/Footer'
-import Open from '@/components/common/open.vue'
-export default {
-    components:{
-        SearchBar,
-        ToolBar,
-        Footer,
-        Open
-    }
-}
-</script>
-
 <style lang="stylus" scoped>
-.root
-    // transform scale(0.5)
 
-.con
-    position relative
 .newUserCallApp
     height 1.12rem
     width 100%
@@ -67,12 +51,4 @@ export default {
         right .35rem
         text-align center
         font-size  .3rem
-            
 </style>
-
-
-
-
-
-
-

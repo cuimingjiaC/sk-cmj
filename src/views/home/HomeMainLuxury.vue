@@ -2,18 +2,15 @@
   <div class="main-scroll-container">
     <div class="main-scroll">
       <div class="main-container">
-        <div id="swiper">
-          <div class="swiper-container">
-            <div class="swiper-wrapper">
-              <div class="swiper-slide" v-for="(item,index) in swipeItems" :key="index">
-                <img :src="item.img">
-              </div>
-            </div>
-            <div class="swiper-pagination"></div>
-          </div>
+        <div class="swiper-box">
+          <swiper :options="swiperOption" ref="mySwiper">
+            <swiper-slide v-for="(item,index) in swipeItems" :key="index">
+              <img :src="item.img">
+            </swiper-slide>
+            <div class="swiper-pagination" slot="pagination"></div>
+          </swiper>
         </div>
 
-        <!-- <div class="test1px"></div> -->
         <div class="channel-container">
           <div class="channel-item">
             <div class="channel-title">官方直营</div>
@@ -69,16 +66,6 @@
                     <img :src="item.img" alt>
                   </div>
                 </div>
-
-                <!-- <div class="floor-03-slider-item">
-                <h3 class="floor-03-slider-title">
-                  <span>数码</span>
-                  <span>新品到货</span>
-                </h3>
-                <div class="floor-03-slider-content">
-                  <img src="https://pic12.secooimg.com/res/topic/50/99/1ZNL5o2cd1d3138c8c454aaad8627914beac37.jpg_!!0x0.webp" alt="">
-                </div>
-                </div>-->
               </div>
             </div>
           </div>
@@ -91,10 +78,6 @@
               <div v-show="index === floor04tag">
                 <h3 class="floor-04-title">{{item.title}}</h3>
                 <h4 class="floor-04-sub-title">{{item.subTitle}}</h4>
-                <!-- <div class="swiper-pagination sku-slider-pagination swiper-pagination-black swiper-pagination-bullets">
-                  <span class="swiper-pagination-bullet"></span>
-                  <span class="swiper-pagination-bullet swiper-pagination-bullet-active"></span>
-                </div> -->
               </div>
             </div>
             <div class="floor-04-content">
@@ -102,20 +85,9 @@
                 <div class="floor-04-swiper-wrapper">
                   <div class="floor-04-swiper-slide" v-for="item in floor04Items" :key="item.title">
                     <div>
-                      <!-- {{item.img}} -->
-                      
                       <img :src="item.img">
                     </div>
                   </div>
-
-                  <!-- <div class="floor-04-swiper-slide">
-                    <div >
-                      <img class="slider-img"
-                        src="https://pic12.secooimg.com/res/topic/49/53/1Zmtos15396be9d30b4b918dbf40e54c44b417.png_!!0x0.webp"
-                        lazy="loaded" >
-                    </div>
-                  </div> -->
-
                 </div>
               </div>
             </div>
@@ -233,10 +205,11 @@
 </template>
 
 <script>
+import 'swiper/dist/css/swiper.css'
+import { swiper, swiperSlide } from 'vue-awesome-swiper'
+
 import { getRequestMethod } from "utils/requests";
-import "swiper/dist/css/swiper.css";
 import Vue from "vue";
-import Swiper from "swiper";
 import BScroll from "better-scroll";
 import { constants } from "fs";
 
@@ -245,13 +218,42 @@ export default {
     return {
       results: "",
       swipeItems: [],
-      // initData: null,
       sikuItemList: [],
       floor03Items: [],
       floor04Items: [],
       floor04tag: 0,
       floor04tags: 0,
+      swiperOption: {
+        // notNextTick: true,
+        loop:true,
+        autoplay:true,
+        pagination: { 
+          el: '.swiper-pagination',
+        }
+      },
+      // swiperOption: {
+      //   // notNextTick是一个组件自有属性，如果notNextTick设置为true，组件则不会通过NextTick来实例化swiper，也就意味着你可以在第一时间获取到swiper对象　　　　　　　　假如你需要刚加载遍使用获取swiper对象来做什么事，那么这个属性一定要是true
+      //   // notNextTick: true,
+      //   // swiper configs 所有的配置同swiper官方api配置
+      //   autoplay:1500,
+      //   loop:true,// 轮播
+      //   direction : 'horizontal',
+      //   grabCursor : true,
+      //   setWrapperSize :true,
+      //   autoHeight: true,
+      //   pagination : '.swiper-pagination',
+      //   paginationClickable :true,// 点击分页控制轮播
+      //   mousewheelControl : true,// 鼠标控制轮播
+      //   observeParents:true,
+      //   // 如果自行设计了插件，那么插件的一些配置相关参数，也应该出现在这个对象中，如下debugger
+      //   debugger: true,
+      // }
     };
+  },
+
+  components: {
+    swiper,
+    swiperSlide
   },
 
   async created() {
@@ -295,7 +297,6 @@ export default {
 
 watch: {
   results(){
-    // console.log(1)
     new BScroll(".main-scroll");
 
     new BScroll(".floor-03-swiper-wrapper", {
@@ -315,25 +316,6 @@ watch: {
       // console.log("this.floor04tags",that.floor04tags )
     })
 
-
-
-    var swiper = new Swiper(".swiper-container", {
-      autoplay:true,
-      slidesPerView: 1,
-      loop: true,
-      //auto 就从后面开始也是奇怪 设置slider容器能够同时显示的slides数量(carousel模式)。https://www.swiper.com.cn/api/grid/24.html
-      spaceBetween: 0, //在slide之间设置距离（单位px）。 https://www.swiper.com.cn/api/grid/198.html
-      initialSlide: 0,
-      // centeredSlides: true,//设定为true时，active slide会居中，而不是默认状态下的居左。
-      // loopAdditionalSlides: 100,//loop模式下会在slides前后复制若干个slide,，前后复制的个数不会大于原总个数。
-      //  watchSlidesProgress: true,    //开启这个参数来计算每个slide的progress(进度、进程)
-      observer: true, //修改swiper自己或子元素时，自动初始化swiper
-      observeParents: true, //修改swiper的父元素时，自动初始化swiper
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true
-      }
-    });
   },
   // floor04tags(){
   //   console.log(this.floor04tag)
@@ -349,8 +331,8 @@ watch: {
 // },
 
   // mounted() {
-   
-  // }
+  // },
+
 };
 
 </script>
@@ -360,39 +342,53 @@ watch: {
 // @import "mint-ui/lib/style.css"
 @import '~@/assets/border.styl';
 
-.main-scroll-container {
+
+
+
+
+.main-scroll-container 
   overflow: hidden;
 
-  .main-scroll {
+  .main-scroll 
     height: 9.54rem;
     // overflow: scroll;
     background-color: #f5f5f5;
 
-    .main-container {
-    }
-  }
-}
+    .main-container 
+      .swiper-box
+        height: 6.5rem;
+        .swiper-container
+          height 100%
+          // width 100%
+          .swiper-wrapper
+            height 100%
+            // width 100%
+            .swiper-slide
+              img 
+                height: 6.5rem;
+                width: 100%;
+            
 
-#swiper {
-  height: 6.5rem;
-  background-color: #ffffff;
+// #swiper {
+//   height: 6.5rem;
+//   background-color: #ffffff;
 
-  .swiper-container {
-    .swiper-wrapper {
-      .swiper-slide {
-        width: 100% !important;
-        margin-right: 0 !important;
-      }
-    }
-  }
-}
+  // .swiper-container {
+  //   .swiper-wrapper {
+  //     .swiper-slide {
+  //       width: 100% !important;
+  //       margin-right: 0 !important;
+  //     }
+  //   }
+  // }
+// }
 
-.swiper-slide {
-  img {
-    height: 6.5rem;
-    width: 100%;
-  }
-}
+// .swiper-slide {
+//   img {
+//     height: 6.5rem;
+//     width: 100%;
+//   }
+// }
 
 .separate {
   height: 0.7rem;

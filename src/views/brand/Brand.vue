@@ -9,23 +9,22 @@
             <div class="transitionBox">
                 <transition name="fade">
                     <ul class="bindEventListUl" v-show="show">
-                        <li @click="goHome()">
+                        <li @click="goHome">
                             <i class="iconfont icon-home"></i>            
                             <span class="text">首页</span>
                         </li>
-                        <li @click="goBag()">
+                        <li @click="goBag">
                             <i class="iconfont icon-shopping-bag"></i>            
                             <span class="text">购物袋</span>
                         </li>
-                        <li @click="goMy()">
+                        <li @click="goMy">
                             <i class="iconfont icon-my"></i>      
                             <span>我的寺库</span>
                         </li>
                         <!-- <div style="clear:both"></div> -->
                     </ul>
                 </transition>
-            </div>
-            
+            </div>       
         </div>
         
     </header>
@@ -34,12 +33,19 @@
         <div class="floor_1">
             <h1>品牌优选</h1>
         </div>
+      
         <div class="box" style="height:100%">
             <div class="floor_2 clear">
+                
                 <ul class="tpl_enter_img5" >
-                    <li v-for="item in brandList" :key=item.id>
+                    <li 
+                        v-for="item in brandList" 
+                        :key="item.id" 
+                        class="a"
+                        @click="handleClick(item.enTitle)"
+                    >
                         <div class="img_con">
-                            <img :src=item.img alt="">
+                            <img :src=item.img alt="" >
                         </div>
                         <div class="des">
                             <div class="des1">{{item.enTitle}}</div>
@@ -67,6 +73,7 @@ import BScroll from "better-scroll"
 import { getRequestMethod } from 'utils/requests'
 import { constants } from 'fs';
 import { Toast } from 'mint-ui';
+import { debug } from 'util';
 
 export default {
     data() {
@@ -94,6 +101,7 @@ export default {
         let bScroll = new BScroll(".floor_2",{
             pullUpLoad: true,
             probeType: 2,
+            click:true   // 点击事件是true
         });
 
         let count = 0
@@ -125,7 +133,11 @@ export default {
             
         })
     },
-    methods:{
+
+    methods: {
+        handleClick(item) {
+            this.$router.push('/products/'+item)
+        },
         goback(){
             window.history.back()
         },
@@ -137,8 +149,10 @@ export default {
         },
         goMy(){
             this.$router.push('/my')
-        }
-
+        },
+        clicak(){
+            console.log(1)
+        }       
     }
 
 
