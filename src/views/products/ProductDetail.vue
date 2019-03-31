@@ -126,7 +126,15 @@ export default {
         goMy(){
             this.$router.push('/my')
         }, 
-        addToBag() {
+        async addToBag() {
+            //调加入购物车接口显然是还没加那
+
+            // let results = await getRequestMethod({
+            //     url:'api/cart/cart?action=0&aid=5&cartType=0&client=iphone&v=2.0&openCloud=1&products=%5B%5D&upk=420103015343A15EBCF8633F141FE5C6C57161D5135D5665089292C437542863EF19213991EBBD9035BCA7D49C3459EA6A30C5757F778F8678D2653E3ACFF38DA0D3355E9ACD2A0B2F892115DC6E2051F32D7E52966F9B37491D74B687A051AC0071C526A7CA9FB6D362E53D3EE495D4FABF743376A7A417CAB8&c_platform_type=0'
+            // })
+            // console.log(results)
+            // // 以下这种写法是OK的
+            // this.$store.dispatch('cart/setCart',results.data)
             Toast({
                 message: '加入购物袋成功',
                 position: 'center',
